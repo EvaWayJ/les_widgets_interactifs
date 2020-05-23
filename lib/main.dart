@@ -30,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 int itemSelectionne;
+bool iterrupteur = false;
 List<Widget> radios(){
   List <Widget> l = [];
   for (int x=0; x < 4; x++){
@@ -88,7 +89,18 @@ List<Widget> radios(){
           child:
           new Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: radios(),
+            children:[
+              new Text('Aimez vous Codabee'),
+              new Switch(
+                  value: iterrupteur,
+                  inactiveTrackColor: Colors.red,
+                  activeColor: Colors.green,
+                  onChanged: (bool b){
+                    setState(() {
+                      iterrupteur=b;
+                    });
+                  })
+            ],
           ),
         )
     );
