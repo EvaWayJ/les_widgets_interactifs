@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -27,7 +29,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+int itemSelectionne;
+List<Widget> radios(){
+  List <Widget> l = [];
+  for (int x=0; x < 4; x++){
+    Row r = new Row(
+      children: <Widget>[ 
+        new Text('Choix numero ${x+1}'),
+        new Radio(
+            value: x,
+            groupValue: itemSelectionne,
+            onChanged: (int i) {
+              setState(() {
+                itemSelectionne=i;
+              });
+            }
+        )
+      ],
+    );
+    l.add(r);
+  }
+  return l;
+}
   Map check = {
     'Carrote':false,
     'Banane': false,
@@ -65,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child:
           new Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: checkList(),
+            children: radios(),
           ),
         )
     );
