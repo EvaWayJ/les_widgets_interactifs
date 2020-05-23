@@ -31,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 int itemSelectionne;
 bool iterrupteur = false;
+double sliderDouble = 0.0;
+
 List<Widget> radios(){
   List <Widget> l = [];
   for (int x=0; x < 4; x++){
@@ -90,16 +92,19 @@ List<Widget> radios(){
           new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children:[
-              new Text('Aimez vous Codabee'),
-              new Switch(
-                  value: iterrupteur,
-                  inactiveTrackColor: Colors.red,
-                  activeColor: Colors.green,
-                  onChanged: (bool b){
+              new Text('Valeur du slider: $sliderDouble'),
+              new Slider(
+                  value: sliderDouble,
+                  min: 0.0,
+                  max: 10.0,
+                  inactiveColor: Colors.black,
+                  activeColor: Colors.pinkAccent,
+                  divisions: 5,
+                  onChanged: (double d){
                     setState(() {
-                      iterrupteur=b;
+                      sliderDouble = d;
                     });
-                  })
+        })
             ],
           ),
         )
