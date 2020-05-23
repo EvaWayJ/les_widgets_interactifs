@@ -32,7 +32,8 @@ class _MyHomePageState extends State<MyHomePage> {
 int itemSelectionne;
 bool iterrupteur = false;
 double sliderDouble = 0.0;
-
+DateTime date;
+TimeOfDay time;
 List<Widget> radios(){
   List <Widget> l = [];
   for (int x=0; x < 4; x++){
@@ -92,22 +93,39 @@ List<Widget> radios(){
           new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children:[
-              new Text('Valeur du slider: $sliderDouble'),
-              new Slider(
-                  value: sliderDouble,
-                  min: 0.0,
-                  max: 10.0,
-                  inactiveColor: Colors.black,
-                  activeColor: Colors.pinkAccent,
-                  divisions: 5,
-                  onChanged: (double d){
-                    setState(() {
-                      sliderDouble = d;
-                    });
-        })
+              new FlatButton(
+                  onPressed: montrerDate,
+                  child: new Text((date == null) ? "Appuyer moi" : date.toString())),
+              new FlatButton(
+                  onPressed: montrerHeure,
+                  child: new Text((time == null) ? "Appuyer moi" : time.toString()))
             ],
           ),
         )
     );
   }
+
+  Future<Null> montrerDate() async{
+    DateTime choix = await showDatePicker(
+        context: context,
+        initialDatePickerMode: DatePickerMode.year,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(1983), 
+        lastDate: new DateTime(2045));
+    if(choix!=null){
+      setState(() {
+        date = choix;
+      });
+    }
+  }
+
+Future<Null> montrerHeure() async{
+    TimeOfDay heure = await showTimePicker(
+        context: context,
+        initialTime: new TimeOfDay.now());
+    if(heure!=null){setState(() {
+      time = heure;
+    });
+    }
+}
 }
